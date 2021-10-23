@@ -11,24 +11,22 @@ let leftFrom pos = { x = pos.x + 1; y = pos.y }
 let rightFrom pos = { x = pos.x - 1; y = pos.y }
 let getNeighbors (pos:Position) (state:State) =
   let output =
-    [
-    pos |> downFrom
-    pos |> rightFrom
-    pos |> leftFrom
-    pos |> upFrom
-    if state.settings.diagonal then
-      pos |> downFrom |> rightFrom
-      pos |> downFrom |> leftFrom
-      pos |> upFrom |> rightFrom
-      pos |> upFrom |> leftFrom
-    ] 
+    [ pos |> downFrom
+      pos |> rightFrom
+      pos |> leftFrom
+      pos |> upFrom
+      if state.settings.Diagonal then
+        pos |> downFrom |> rightFrom
+        pos |> downFrom |> leftFrom
+        pos |> upFrom |> rightFrom
+        pos |> upFrom |> leftFrom ] 
   output
-  |> List.filter(state.grid.ContainsKey)
+  |> List.filter(state.Grid.ContainsKey)
   |> List.filter(fun pos ->
-    state.grid.[pos] = Walkable ||
-    state.grid.[pos] = Target)
+    state.Grid.[pos] = Walkable ||
+    state.Grid.[pos] = Target)
 let filterInList (nodes:Node list) pos =
   nodes
-  |> List.map(fun node -> node.position)
+  |> List.map(fun node -> node.Position)
   |> List.contains(pos)
   |> not

@@ -7,51 +7,43 @@ open Pathfinding.Core.Domain.Settings
 
 open Domain.BreadthFirst
 let initSettings = {
-  diagonal = false
-  width = 10
-  height = 10
-  cost = false
-  position = false
-  arrow = false
-}
+  Diagonal = false
+  Width = 10
+  Height = 10
+  Cost = false
+  Position = false
+  Arrow = false }
 let initStart = {x=0;y=0}
-let initTarget = {x=initSettings.width-1;y=initSettings.height-1}
+let initTarget = {x=initSettings.Width-1;y=initSettings.Height-1}
 let initRandomGrid state: Grid =
   let rand = Random()
   let grid =
-    [
-      for x in [0..state.settings.width-1] do
-        for y in [0..state.settings.height-1] do
-          let terrain =
-            match rand.Next(0, 3) with
-            | 0 -> Blocked
-            | _ -> Walkable
-          ({x=x;y=y}, terrain)
-    ]
+    [ for x in [0..state.settings.Width-1] do
+      for y in [0..state.settings.Height-1] do
+        let terrain =
+          match rand.Next(0, 3) with
+          | 0 -> Blocked
+          | _ -> Walkable
+        ({x=x;y=y}, terrain) ]
     |> Map.ofList
   grid
     .Add(state.getStart, Start)
     .Add(state.getTarget, Target)
 let initGrid settings: Grid =
   let grid =
-    [
-      for x in [0..settings.width-1] do
-        for y in [0..settings.height-1] do 
-          ({x=x;y=y}, Walkable)
-    ]
+    [ for x in [0..settings.Width-1] do
+      for y in [0..settings.Height-1] do 
+        ({x=x;y=y}, Walkable) ]
     |> Map.ofList
   grid
     .Add(initStart, Start)
-    .Add({x=settings.width-1;y=settings.height-1}, Target)
+    .Add({x=settings.Width-1;y=settings.Height-1}, Target)
 let initData: Domain.BreadthFirst.Data = {
-  closedNodes = []
-  openNodes = [createNode None 0 initStart]
-  }
-let initState(): State =
-  {
-    grid = initGrid initSettings
-    solutions = []
-    breadthFirstData = initData
-    view = GridView
-    settings = initSettings
-  }
+  ClosedNodes = []
+  OpenNodes = [createNode None 0 initStart] }
+let initState(): State = {
+    Grid = initGrid initSettings
+    Solutions = []
+    BreadthFirstData = initData
+    View = GridView
+    settings = initSettings }

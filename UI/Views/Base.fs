@@ -7,73 +7,35 @@ open Pathfinding.Core.Domain
 open Route.Domain
 open Avalonia.FuncUI.DSL
 
+let buttons dispatch (state:State) = 
+  [
+  "Run once", (fun _ -> dispatch (RunBreadthFirstOnce)), (state.View = GridView && not Settings.debugState)
+  "Solve", (fun _ -> dispatch (RunBreadthFirst)), (state.View = GridView && not Settings.debugState)
+
+  "Reset", (fun _ -> dispatch (Reset)), (state.View = GridView)
+  "Random Terrain", (fun _ -> dispatch (RandomTerrain)), (state.View = GridView)
+
+  "GridView", (fun _ -> dispatch (ChangeView GridView)), (state.View = SettingsView)
+  "SettingsView", (fun _ -> dispatch (ChangeView SettingsView)), (state.View = GridView)
+
+  "Turn off debug/autorun", (fun _ -> dispatch (ToggleRunTimer)), (Settings.debugState)
+  "Turn on debug/autorun", (fun _ -> dispatch (ToggleRunTimer)), (not Settings.debugState)
+]
 /// creates the buttons at the bottom
 let createButtons state dispatch =
   StackPanel.create [
     StackPanel.dock Dock.Bottom
     StackPanel.children [
-      Button.create [
-        Button.dock Dock.Bottom
-        Button.height 50.
-        Button.isVisible (state.view = GridView)
-        Button.content "SettingsView"
-        Button.onClick (fun _ -> dispatch (Input.ChangeView State.View.SettingsView))
-      ]
-      Button.create [
-        Button.dock Dock.Bottom
-        Button.height 50.
-        Button.isVisible (state.view = SettingsView)
-        Button.content "GridView"
-        Button.onClick (fun _ -> dispatch (Input.ChangeView State.View.GridView))
-      ]
-      match Settings.runTimer with
-      | false -> 
+      for (text, dispatch, visible) in (buttons dispatch state) do
         Button.create [
           Button.dock Dock.Bottom
           Button.height 50.
-          Button.content "Reset"
-          Button.onClick (fun _ -> dispatch Input.Reset)
-        ]
-        Button.create [
-          Button.dock Dock.Bottom
-          Button.height 50.
-          Button.content "Random Terrain"
-          Button.onClick (fun _ -> dispatch Input.RandomTerrain)
-        ]
-        Button.create [
-          Button.dock Dock.Bottom
-          Button.height 50.
-          Button.content "Run"
-          Button.onClick (fun _ -> dispatch Input.RunBreadthFirst)
-        ]
-        Button.create [
-          Button.dock Dock.Bottom
-          Button.height 50.
-          Button.content "Run Once"
-          Button.onClick (fun _ -> dispatch Input.RunBreadthFirstOnce)
-        ]
-        Button.create [
-          Button.dock Dock.Bottom
-          Button.height 50.
-          Button.content "Turn on Autorun/Debug"
-          Button.onClick (fun _ -> dispatch Input.ToggleRunTimer)
-        ]
-      | true -> 
-        Button.create [
-          Button.dock Dock.Bottom
-          Button.height 50.
-          Button.content "Random Terrain"
-          Button.onClick (fun _ -> dispatch Input.RandomTerrain)
-        ]
-        Button.create [
-          Button.dock Dock.Bottom
-          Button.height 50.
-          Button.content "Turn off Autorun/Debug"
-          Button.onClick (fun _ -> dispatch Input.ToggleRunTimer)
+          Button.isVisible visible
+          Button.content text
+          Button.onClick dispatch
         ]
     ]
   ]
-
 
 ///
 /// the main view controller
@@ -84,10 +46,8 @@ let view (state:Output) dispatch =
   DockPanel.create [
     DockPanel.children [
       createButtons state dispatch
-      match state.view with
-      | SettingsView ->
-        SettingsView.view state dispatch
-      | GridView ->
-        GridView.view state dispatch
+      match state.View with
+      | SettingsView -> SettingsView.view state dispatch
+      | GridView -> GridView.view state dispatch
     ]
   ]

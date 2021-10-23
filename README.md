@@ -17,9 +17,9 @@ exploring/learning pathfinding algorithms
     - understand what makes a good algorithm for one-one, one-many, many-one, many-many
     - what is reusable between them all?
     - when to use them?
-##### versioning
+#### versioning
 ~~~
-0.06    git
+0.06    git, view cleanup
 0.05    settings
 0.04    pathfinding; simple one-one breadth first 
 0.03    ui; display a grid with blocked/walkable tiles
@@ -27,7 +27,7 @@ exploring/learning pathfinding algorithms
 0.01    readme; pathfinding domain, resources, todo, checklist
 0.00    readme
 ~~~
-### checklist 
+#### checklist 
 - [x] basic functionality
 - [x] refactor
 - [x] functional first implementation
@@ -39,14 +39,11 @@ exploring/learning pathfinding algorithms
 - [algorithminsight](https://algorithmsinsight.wordpress.com/graph-theory-2/a-star-in-general/implementing-astar-for-pathfinding/)
 ###### scratch
 ~~~
-views är katastrof
-resultmonads för att slippa pyramid of doom
+run once -> solve ger ui-bugg där open inte ändras
+run once -> change terrain är borde reseta 
 cleanup mellan domain, helpers och types/wrappers
 refactora all init
 gör mer permanenta helpers för testing / fsi
-gör om settings till en mailbox, är mutable state atm
-ändra width/height via settings
-kommer bli kaos med ett par till pathfindings
 refactora routes, kommer inte bli så mycket
 
 --- tests efter andra algorithmen
@@ -62,4 +59,3 @@ views
     arrow
     cost
 ~~~
-# Pathfinding

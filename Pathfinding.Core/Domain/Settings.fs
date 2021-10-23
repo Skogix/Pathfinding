@@ -1,10 +1,5 @@
 module Pathfinding.Core.Domain.Settings
-
-
-///
-/// Settings
-///
-let mutable runTimer = true
+let mutable debugState = true
 type GridSizeChange = Increment | Decrement
 type ChangeSettingsCommand =
   | Diagonal
@@ -15,23 +10,22 @@ type ChangeSettingsCommand =
   | Width of GridSizeChange
   | Height of GridSizeChange
 type Settings = {
-  diagonal: bool
-  cost: bool
-  arrow: bool
-  position: bool
-  width: int
-  height: int
-}
+  Diagonal: bool
+  Cost: bool
+  Arrow: bool
+  Position: bool
+  Width: int
+  Height: int }
 let updateSettings state command =
   let gridSizeChange (command:GridSizeChange) int =
     match command with
     | Increment -> int + 1
     | Decrement -> int - 1
   match command with
-  | Diagonal -> {state with diagonal = not state.diagonal}
-  | Cost -> {state with cost = not state.cost}
-  | Arrow -> {state with arrow = not state.arrow}
-  | Position -> {state with position = not state.position}
-  | Width cmd -> {state with width = (gridSizeChange cmd state.width) }
-  | Height cmd -> {state with height = (gridSizeChange cmd state.height) }
+  | Diagonal -> {state with Diagonal = not state.Diagonal}
+  | Cost -> {state with Cost = not state.Cost}
+  | Arrow -> {state with Arrow = not state.Arrow}
+  | Position -> {state with Position = not state.Position}
+  | Width cmd -> {state with Width = (gridSizeChange cmd state.Width) }
+  | Height cmd -> {state with Height = (gridSizeChange cmd state.Height) }
   | _ -> state

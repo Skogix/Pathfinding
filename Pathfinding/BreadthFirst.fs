@@ -15,7 +15,6 @@ open Pathfinding.Core.Common
 ///   newClosed:
 ///     open.first :: closed
 /// newOpen, newClosed
-///
  
 /// runs the pathfinding one step
 let runOnce (openNodes:OpenNodes) (closedNodes:ClosedNodes) grid: OpenNodes * ClosedNodes =
@@ -23,10 +22,10 @@ let runOnce (openNodes:OpenNodes) (closedNodes:ClosedNodes) grid: OpenNodes * Cl
     match openNodes with
     | first::rest ->
       let newOpen =
-        getNeighbors first.position grid 
+        getNeighbors first.Position grid 
         |> List.filter(filterInList openNodes)
         |> List.filter(filterInList closedNodes)
-        |> List.map(createNode (Some first.position) (first.cost + 1))
+        |> List.map(createNode (Some first.Position) (first.Cost + 1))
       (rest @ newOpen, first :: closedNodes)
     | [] -> (openNodes, closedNodes)
   (outputOpen, outputClosed)
@@ -38,19 +37,18 @@ let run (data:Data) grid =
     | list ->
       let newOpen, newClosed = runOnce list closedNodes grid
       loop newOpen newClosed
-  loop data.openNodes data.closedNodes
+  loop data.OpenNodes data.ClosedNodes
 /// if the target exists in closed nodes, get the parent position chain to the closest start
 let tryFindBackHome (target:Position) (closedNodes:Node list) =
-  match closedNodes |> List.exists(fun n -> n.position = target) with
+  match closedNodes |> List.exists(fun n -> n.Position = target) with
   | true -> 
-    let getNode pos = closedNodes |> List.find(fun node -> node.position = pos)
+    let getNode pos = closedNodes |> List.find(fun node -> node.Position = pos)
     let rec loop (currentNode:Node) path =
-      match currentNode.parent with
+      match currentNode.Parent with
       | Some parentPos -> loop (getNode parentPos) (parentPos::path)
       | None -> Some path
     loop (getNode target) [target]
   | false -> None
-  
 // will probably be expanded alot later
 let tryGetSolution start target (closedNodes: Node list): Solution option =
   match (tryFindBackHome target closedNodes) with
@@ -58,8 +56,7 @@ let tryGetSolution start target (closedNodes: Node list): Solution option =
     Some {
       start = start
       target = target
-      path = solution
-    }
+      path = solution }
   | None -> None
 // will probably be expanded alot later
 let getSolutions start target (closedNodes:ClosedNodes): Solution list =

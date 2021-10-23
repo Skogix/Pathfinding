@@ -1,6 +1,5 @@
 module Pathfinding.Core.Domain.Grid
 
-
 type Position = {x:int;y:int} 
 type Terrain =
   | Walkable

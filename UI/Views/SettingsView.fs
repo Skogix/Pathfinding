@@ -7,61 +7,31 @@ open Pathfinding.Core.Domain.Settings
 open Pathfinding.Core.State
 open Route.Domain
 
-let view state dispatch =
+let toggleButtons _ dispatch = [
+  "Toggle Diagonal", (fun _ -> dispatch (ChangeSetting Diagonal))
+  "Toggle Arrow",    (fun _ -> dispatch (ChangeSetting Arrow))
+  "Toggle Cost",     (fun _ -> dispatch (ChangeSetting Cost))
+  "Height +", (fun _ -> dispatch (ChangeSetting (Height Increment)))
+  "Height -", (fun _ -> dispatch (ChangeSetting (Height Decrement)))
+  "Width +", (fun _ -> dispatch (ChangeSetting (Width Increment)))
+  "Width -", (fun _ -> dispatch (ChangeSetting (Width Decrement))) ]
+let view (state:State) dispatch =
   StackPanel.create [
     StackPanel.children [
-      Button.create [
-        Button.content "Toggle Diagonal"
-        Button.height 50.
-        Button.onClick(fun _ -> dispatch (Input.ChangeSetting ChangeSettingsCommand.Diagonal))
-      ]
-      Button.create [
-        Button.content "Toggle Arrows"
-        Button.height 50.
-        Button.onClick(fun _ -> dispatch (Input.ChangeSetting ChangeSettingsCommand.Arrow))
-      ]
-      Button.create [
-        Button.content "Toggle Cost"
-        Button.height 50.
-        Button.onClick(fun _ -> dispatch (Input.ChangeSetting ChangeSettingsCommand.Cost))
-      ]
-      Button.create [
-        Button.content "Toggle Position"
-        Button.height 50.
-        Button.onClick(fun _ -> dispatch (Input.ChangeSetting ChangeSettingsCommand.Position))
-      ]
+      for text, dispatch in toggleButtons state dispatch do
+        Button.create [
+          Button.content text
+          Button.height 40.
+          Button.onClick dispatch ]
       TextBlock.create [
-        TextBlock.text $"{state.settings}"
-      ]
-      StackPanel.create [
-        StackPanel.orientation Orientation.Horizontal
-        StackPanel.children [
-          Button.create [
-            Button.content "Height +"
-            Button.height 50.
-            Button.onClick(fun _ -> dispatch (Input.ChangeSetting (ChangeSettingsCommand.Height Increment)))
-          ]
-          Button.create [
-            Button.content "Height -"
-            Button.height 50.
-            Button.onClick(fun _ -> dispatch (Input.ChangeSetting (ChangeSettingsCommand.Height Decrement)))
-          ]
-        ]
-      ]
-      StackPanel.create [
-        StackPanel.orientation Orientation.Horizontal
-        StackPanel.children [
-          Button.create [
-            Button.content "Width +"
-            Button.height 50.
-            Button.onClick(fun _ -> dispatch (Input.ChangeSetting (ChangeSettingsCommand.Width Increment)))
-          ]
-          Button.create [
-            Button.content "Width -"
-            Button.height 50.
-            Button.onClick(fun _ -> dispatch (Input.ChangeSetting (ChangeSettingsCommand.Width Decrement)))
-          ]
-        ]
-      ]
+        let sprintBool bool = if bool then "On" else "Off"
+        TextBlock.text $"
+        Diagonal: {sprintBool state.settings.Diagonal}
+        Arrows:   {sprintBool state.settings.Arrow}
+        Position: {sprintBool state.settings.Position}
+        Cost:     {sprintBool state.settings.Cost}
+        Width:    {state.settings.Width}
+        Height:   {state.settings.Height}
+        " ]
     ]
   ]
