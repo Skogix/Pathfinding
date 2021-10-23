@@ -19,12 +19,13 @@ exploring/learning pathfinding algorithms
     - when to use them?
 ##### versioning
 ~~~
+0.06    git
 0.05    settings
 0.04    pathfinding; simple one-one breadth first 
 0.03    ui; display a grid with blocked/walkable tiles
 0.02    ui; hello world, routeing for basic input, increment test-counter
 0.01    readme; pathfinding domain, resources, todo, checklist
-0.00    git init, readme
+0.00    readme
 ~~~
 ### checklist 
 - [x] basic functionality
