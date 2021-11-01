@@ -13,15 +13,12 @@ let update (command:Input) (outputState:Output) =
   match commandOption with
   | Some command -> state, Cmd.ofMsg command
   | None -> state, Cmd.none
-    
 /// simple timer that sends a command
 let timer _ _ =
   let sub dispatch =
     let invoke () =
-      if Settings.runTimer then dispatch RunBreadthFirst
+      if Settings.debugState then dispatch RunBreadthFirst
       true
-
     DispatcherTimer.Run (Func<bool> invoke, TimeSpan.FromMilliseconds 50.0)
     |> ignore
-
   Cmd.ofSub sub

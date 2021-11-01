@@ -1,7 +1,6 @@
 module Pathfinding.Core.Domain.Grid
 
-
-type Position = {x:int;y:int} 
+type Position = {X:int;Y:int} 
 type Terrain =
   | Walkable
   | Blocked

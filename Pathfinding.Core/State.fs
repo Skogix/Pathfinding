@@ -4,27 +4,25 @@ open Pathfinding.Core.Domain
 open Pathfinding.Core.Domain.Grid
 
 type Solution = {
-  start: Position
-  target: Position
-  path: Position list
-}
+  Start: Position
+  Target: Position
+  Path: Position list }
 type View =
   | GridView
   | SettingsView
 type State = {
-  grid: Grid
-  solutions: Solution list
-  breadthFirstData: BreadthFirst.Data
-  view: View
-  settings: Settings.Settings
+  Grid: Grid
+  Solutions: Solution list
+  BreadthFirstData: BreadthFirst.Data
+  View: View
+  Settings: Settings.Settings
 } with
-  member this.updateGrid pos state = {this with grid = this.grid.Add(pos, state)}
-  member this.getStart = this.grid |> Map.filter(fun pos terrain -> terrain = Start) |> List.ofSeq |> List.map(fun x -> x.Key) |> List.head
-  member this.getTarget = this.grid |> Map.filter(fun pos terrain -> terrain = Target) |> List.ofSeq |> List.map(fun x -> x.Key) |> List.head
-  member this.openNodesPositionList = this.breadthFirstData.openNodes |> List.map(fun n -> n.position)
-  member this.closedNodesPositionList = this.breadthFirstData.closedNodes |> List.map(fun n -> n.position)
-  member this.solutionsContainsPos pos =
-    this.solutions
-    |> List.map(fun sol -> sol.path)
-    |> List.concat
+  member this.UpdateGrid pos state = {this with Grid = this.Grid.Add(pos, state)}
+  member this.GetStart = this.Grid |> Map.filter(fun pos terrain -> terrain = Start) |> List.ofSeq |> List.map(fun x -> x.Key) |> List.head
+  member this.GetTarget = this.Grid |> Map.filter(fun pos terrain -> terrain = Target) |> List.ofSeq |> List.map(fun x -> x.Key) |> List.head
+  member this.OpenNodesPositionList = this.BreadthFirstData.OpenNodes |> List.map(fun n -> n.Position)
+  member this.ClosedNodesPositionList = this.BreadthFirstData.ClosedNodes |> List.map(fun n -> n.Position)
+  member this.SolutionsContainsPos pos =
+    this.Solutions
+    |> List.collect(fun sol -> sol.Path)
     |> List.contains pos

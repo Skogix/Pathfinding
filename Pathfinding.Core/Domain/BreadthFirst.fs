@@ -3,18 +3,15 @@ module Pathfinding.Core.Domain.BreadthFirst
 open Pathfinding.Core.Domain.Grid
 
 type Node = {
-  position: Position
-  parent: Position option
-  cost: int
-}
+  Position: Position
+  Parent: Position option
+  Cost: int }
 let createNode parent cost pos = {
-  position = pos
-  parent = parent
-  cost = cost
-}
+  Position = pos
+  Parent = parent
+  Cost = cost }
 type OpenNodes = Node list
 type ClosedNodes = Node list
 type Data = {
-  closedNodes: ClosedNodes
-  openNodes: OpenNodes
-}
+  ClosedNodes: ClosedNodes
+  OpenNodes: OpenNodes }
