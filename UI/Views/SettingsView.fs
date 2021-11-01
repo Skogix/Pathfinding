@@ -26,12 +26,12 @@ let view (state:State) dispatch =
       TextBlock.create [
         let sprintBool bool = if bool then "On" else "Off"
         TextBlock.text $"
-        Diagonal: {sprintBool state.settings.Diagonal}
-        Arrows:   {sprintBool state.settings.Arrow}
-        Position: {sprintBool state.settings.Position}
-        Cost:     {sprintBool state.settings.Cost}
-        Width:    {state.settings.Width}
-        Height:   {state.settings.Height}
+        Diagonal: {sprintBool state.Settings.Diagonal}
+        Arrows:   {sprintBool state.Settings.Arrow}
+        Position: {sprintBool state.Settings.Position}
+        Cost:     {sprintBool state.Settings.Cost}
+        Width:    {state.Settings.Width}
+        Height:   {state.Settings.Height}
         " ]
     ]
   ]

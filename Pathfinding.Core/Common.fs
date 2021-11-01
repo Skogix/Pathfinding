@@ -4,18 +4,18 @@ open Pathfinding.Core.Domain.BreadthFirst
 open Pathfinding.Core.Domain.Grid
 open Pathfinding.Core.State
 
-let createPosition x y = {x=x;y=y}
-let upFrom pos = { x = pos.x; y = pos.y - 1 }
-let downFrom pos = { x = pos.x; y = pos.y + 1 }
-let leftFrom pos = { x = pos.x + 1; y = pos.y }
-let rightFrom pos = { x = pos.x - 1; y = pos.y }
+let createPosition x y = {X=x;Y=y}
+let upFrom pos = { X = pos.X; Y = pos.Y - 1 }
+let downFrom pos = { X = pos.X; Y = pos.Y + 1 }
+let leftFrom pos = { X = pos.X + 1; Y = pos.Y }
+let rightFrom pos = { X = pos.X - 1; Y = pos.Y }
 let getNeighbors (pos:Position) (state:State) =
   let output =
     [ pos |> downFrom
       pos |> rightFrom
       pos |> leftFrom
       pos |> upFrom
-      if state.settings.Diagonal then
+      if state.Settings.Diagonal then
         pos |> downFrom |> rightFrom
         pos |> downFrom |> leftFrom
         pos |> upFrom |> rightFrom

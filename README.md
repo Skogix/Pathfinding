@@ -27,16 +27,10 @@ exploring/learning pathfinding algorithms
 0.01    readme; pathfinding domain, resources, todo, checklist
 0.00    readme
 ~~~
-#### checklist 
-- [x] basic functionality
-- [x] refactor
-- [x] functional first implementation
-- [x] immutable state
-- [x] comments that actually are readable tomorrow...
-- [x] update readme
 ##### resources
 - [redblobgames](https://www.redblobgames.com/pathfinding/a-star/introduction.html)
 - [algorithminsight](https://algorithmsinsight.wordpress.com/graph-theory-2/a-star-in-general/implementing-astar-for-pathfinding/)
+- [avalonia funcui](https://avaloniacommunity.github.io/Avalonia.FuncUI.Docs/)
 ###### scratch
 ~~~
 run once -> solve ger ui-bugg där open inte ändras

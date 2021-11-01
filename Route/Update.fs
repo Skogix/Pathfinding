@@ -14,7 +14,7 @@ let update (command:Input) (state:Output) =
   match command with
   | ChangeView view -> {state with View = view}, None
   | ChangeSetting command ->
-    {state with settings = (updateSettings state.settings command)}, Some Reset
+    {state with Settings = (updateSettings state.Settings command)}, Some Reset
   | ToggleTerrain pos ->
     let toggle =
       match state.Grid.[pos] with
@@ -26,11 +26,11 @@ let update (command:Input) (state:Output) =
     let newGrid = Init.initRandomGrid state
     {state with Grid = newGrid}, None
   | Reset ->
-    {state with BreadthFirstData = Init.initData;Solutions = [];Grid = Init.initGrid state.settings}, None
+    {state with BreadthFirstData = Init.initData;Solutions = [];Grid = Init.initGrid state.Settings}, None
   | RunBreadthFirst ->
     let closedNodes = Pathfinding.BreadthFirst.run Init.initData state
     let newData = {state.BreadthFirstData with ClosedNodes = closedNodes}
-    let newSolutions = Pathfinding.BreadthFirst.getSolutions state.getStart state.getTarget closedNodes
+    let newSolutions = Pathfinding.BreadthFirst.getSolutions state.GetStart state.GetTarget closedNodes
     {state with BreadthFirstData = newData;Solutions = newSolutions}, None
   | RunBreadthFirstOnce ->
     let openNodes, closedNodes = Pathfinding.BreadthFirst.runOnce state.BreadthFirstData.OpenNodes state.BreadthFirstData.ClosedNodes state

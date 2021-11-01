@@ -13,16 +13,16 @@ module InitTests =
     let state = Tests.State.state
     let rand() = Random()
     let randPos =
-        let x = rand().Next(1, state.settings.Width-1)
-        let y = rand().Next(1, state.settings.Height-1)
+        let x = rand().Next(1, state.Settings.Width-1)
+        let y = rand().Next(1, state.Settings.Height-1)
         createPosition x y
     [<Tests>]
     let tests =
         testList "basic tests"
             [
               test "init grid" {
-                  let actual = Pathfinding.Core.Init.initGrid state.settings
-                  let expected = state.settings.Width * state.settings.Height
+                  let actual = Pathfinding.Core.Init.initGrid state.Settings
+                  let expected = state.Settings.Width * state.Settings.Height
                   Expect.equal actual.Count expected $"should be {expected}"
               }
               test "toggle terrain input" {

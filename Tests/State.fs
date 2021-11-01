@@ -8,7 +8,7 @@ open Pathfinding.Core.State
 /// separate state for testing purposes
 /// 
 
-let initStart = {x=0;y=0}
+let initStart = {X=0;Y=0}
 let initSettings: Settings = {
   Diagonal = false
   Cost = false 
@@ -18,15 +18,15 @@ let initSettings: Settings = {
   Height = 2 }
 let initWidth = 2
 let initHeight = 2
-let initStartNode = ({x=0;y=0}, Start)
-let initBlockedNode = ({x=1;y=0}, Blocked)
-let initWalkableNode = ({x=0;y=1}, Walkable)
-let initTargetNode = ({x=initWidth-1;y=initHeight-1}, Target)
+let initStartNode = ({X=0;Y=0}, Start)
+let initBlockedNode = ({X=1;Y=0}, Blocked)
+let initWalkableNode = ({X=0;Y=1}, Walkable)
+let initTargetNode = ({X=initWidth-1;Y=initHeight-1}, Target)
 let initGrid: Grid =
   let grid =
     [ for x in [0..initWidth-1] do
       for y in [0..initHeight-1] do 
-        ({x=x;y=y}, Walkable) ]
+        ({X=x;Y=y}, Walkable) ]
     |> Map.ofList
   grid
     .Add(initStartNode)
@@ -38,7 +38,7 @@ let initState: State =  {
   Solutions = []
   BreadthFirstData = Pathfinding.Core.Init.initData
   View = GridView
-  settings = initSettings }
+  Settings = initSettings }
 let newClosedNodes = Pathfinding.BreadthFirst.run initState.BreadthFirstData initState
 let newData = {initState.BreadthFirstData with ClosedNodes = newClosedNodes}
 let state = {initState with BreadthFirstData = newData}

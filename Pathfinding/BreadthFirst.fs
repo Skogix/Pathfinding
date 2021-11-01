@@ -5,17 +5,6 @@ open Pathfinding.Core.Domain.Grid
 open Pathfinding.Core.State
 open Pathfinding.Core.Common
 
-/// breadth first pseudo
-/// open, closed
-///   newOpen:
-///     getneighbors open.first
-///     |> removeAlreadyInOpen
-///     |> removeAlreadyInClosed
-///     |> setCost
-///   newClosed:
-///     open.first :: closed
-/// newOpen, newClosed
- 
 /// runs the pathfinding one step
 let runOnce (openNodes:OpenNodes) (closedNodes:ClosedNodes) grid: OpenNodes * ClosedNodes =
   let outputOpen, outputClosed =
@@ -54,9 +43,9 @@ let tryGetSolution start target (closedNodes: Node list): Solution option =
   match (tryFindBackHome target closedNodes) with
   | Some solution ->
     Some {
-      start = start
-      target = target
-      path = solution }
+      Start = start
+      Target = target
+      Path = solution }
   | None -> None
 // will probably be expanded alot later
 let getSolutions start target (closedNodes:ClosedNodes): Solution list =

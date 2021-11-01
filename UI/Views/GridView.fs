@@ -27,17 +27,17 @@ module Background =
     let background pos state =
         let isInsideGrid pos = if state.Grid.ContainsKey(pos) then Data pos else failwith "position is outside of the grid"
         let startOrTarget pos =
-            match state.getStart = pos, state.getTarget = pos with
+            match state.GetStart = pos, state.GetTarget = pos with
             | true, _ -> Result Colors.start
             | _, true -> Result Colors.target
             | _, _ -> Data pos
         let solution pos =
-            match state.solutionsContainsPos pos with
+            match state.SolutionsContainsPos pos with
             | true -> Result Colors.solution
             | false -> Data pos
         let openClosedNodes pos =
-            let isClosed = state.closedNodesPositionList |> List.contains (pos)
-            let isOpen = state.openNodesPositionList |> List.contains (pos)
+            let isClosed = state.ClosedNodesPositionList |> List.contains (pos)
+            let isOpen = state.OpenNodesPositionList |> List.contains (pos)
             match isOpen, isClosed with
             | true, _ -> Result Colors.openNode
             | _, true -> Result Colors.closedNode
@@ -59,7 +59,7 @@ module Background =
         =<< Colors.other
 let arrow pos state =
     let getArrow parent =
-        match (parent.x - pos.x), (parent.y - pos.y) with
+        match (parent.X - pos.X), (parent.Y - pos.Y) with
         |  1,  0 -> Some "→"
         |  0,  1 -> Some "↓"
         | -1,  0 -> Some "←"
@@ -69,7 +69,7 @@ let arrow pos state =
         |  1, -1 -> Some "↗"
         | -1,  1 -> Some "↙"
         |  _,  _ -> None
-    match state.settings.Arrow with
+    match state.Settings.Arrow with
     | false -> ""
     | true ->
         match state.BreadthFirstData.ClosedNodes |> List.tryFind (fun x -> x.Position = pos) with
@@ -78,9 +78,9 @@ let arrow pos state =
             |> Option.bind getArrow
             |> Option.defaultValue " "
         | None -> ""
-let position pos state = if state.settings.Position then $"Pos: {pos.x}, {pos.y}" else ""
+let position pos state = if state.Settings.Position then $"Pos: {pos.X}, {pos.Y}" else ""
 let cost pos state =
-    match state.settings.Cost with
+    match state.Settings.Cost with
     | false -> ""
     | true ->
         match state.BreadthFirstData.ClosedNodes |> List.tryFind (fun x -> x.Position = pos) with
@@ -88,7 +88,7 @@ let cost pos state =
         | None -> ""
 /// creates the grid
 let view (state: Output) dispatch =
-    let settings = state.settings
+    let settings = state.Settings
     UniformGrid.create [ 
         UniformGrid.rows settings.Height
         UniformGrid.columns settings.Width
