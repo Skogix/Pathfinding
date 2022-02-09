@@ -1,7 +1,7 @@
 # Pathfinding
 Mindre projekt för att förstå och lära sig [Avalonia](https://avaloniaui.net/) (cross-platform WPF) kombinerat med grunderna i pathfinding-algoritmer. Största delen var spenderat på att förstå skillnaden mellan MVVM/MVC/MVP/MVU.
 
-[Avalonia.FuncUI](https://github.com/fsprojects/Avalonia.FuncUI) (f#-varianten) använder fortfarande [dotnet core 3.0](https://dotnet.microsoft.com/en-us/download/dotnet/3.1) så fungerar nog inte out-of-the-box.
+[Avalonia.FuncUI](https://github.com/fsprojects/Avalonia.FuncUI) (f#-varianten) använder fortfarande [dotnet core 3.1](https://dotnet.microsoft.com/en-us/download/dotnet/3.1) så fungerar nog inte out-of-the-box.
 
 Är nog ett projekt jag vill fortsätta med, för kom bara så långt som [breadth-first](https://en.wikipedia.org/wiki/Breadth-first_search) och både [djikstras](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) och [a*](https://en.wikipedia.org/wiki/A*_search_algorithm) borde inte vara allt för svårt att implementera.
 # --- Old ---
